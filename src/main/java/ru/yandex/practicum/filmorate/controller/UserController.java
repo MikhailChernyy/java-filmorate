@@ -29,13 +29,13 @@ public class UserController {
         validateService.validate(newUser);
         newUser.setId(getNextId());
         users.put(newUser.getId(), newUser);
-        log.info("Успешное создание пользователя");
+        log.info("Успешное создание пользователя c id - {}", newUser.getId());
         return newUser;
     }
 
     @PutMapping
     public User update(@RequestBody User newUser) {
-        log.info("Начало обновления пользователя");
+        log.info("Обновления пользователя с id - {}", newUser.getId());
         return validateService.update(newUser, users);
     }
 

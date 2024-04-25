@@ -16,36 +16,36 @@ public class ValidateServiceImpl implements ValidateService {
     @Override
     public User validate(User user) {
         if (user.getEmail() == null || user.getEmail().isBlank()) {
-            log.warn("Ошибка заполнения имейла");
+            log.warn("Ошибка! Не был введен имейл");
             throw new ConditionsNotMetException("Имейл должен быть заполнен");
         }
         if (!user.getEmail().contains("@")) {
-            log.warn("Ошибка заполнения имейла");
+            log.warn("Ошибка заполнения имейла. Введенный имейл - {}", user.getEmail());
             throw new ConditionsNotMetException("Имейл должен содержать символ - @");
         }
         if (user.getLogin() == null || user.getLogin().isBlank()) {
-            log.warn("Ошибка заполнения логина");
+            log.warn("Ошибка заполнения логина. Введенный логин - {}", user.getLogin());
             throw new ConditionsNotMetException("Логин не должен быть пустым");
         }
         if (user.getLogin().contains(" ")) {
-            log.warn("Ошибка заполнения логина");
+            log.warn("Ошибка заполнения логина. Введенный логин - {}", user.getLogin());
             throw new ConditionsNotMetException("Логин не должен содержать пробелы");
         }
         if (user.getBirthday().isAfter(LocalDate.now())) {
-            log.warn("Ошибка заполнения даты рождения");
+            log.warn("Ошибка заполнения даты рождения. Введенная дата рождения - {}", user.getBirthday());
             throw new DateTimeException("Дата рождения не может быть в будущем");
         }
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
         }
-        log.info("Успешная валидация");
+        log.info("Успешная валидация пользователя");
         return user;
     }
 
     @Override
     public User update(User newUser, Map<Long, User> users) {
         if (newUser.getId() == null) {
-            log.warn("Ошибка указания id");
+            log.warn("Ошибка! Не был указан id");
             throw new ConditionsNotMetException("id должен быть указан");
         }
         if (users.containsKey(newUser.getId())) {
@@ -53,7 +53,7 @@ public class ValidateServiceImpl implements ValidateService {
             if (!newUser.getEmail().equals(oldUser.getEmail())) {
                 for (User user : users.values()) {
                     if (user.getEmail().equals(newUser.getEmail())) {
-                        log.warn("Ошибка заполнения имейла");
+                        log.warn("Ошибка! {} - такой имейл уже зарегестрирован", user.getEmail());
                         throw new DuplicateDataException("Имайл не должен повторяться");
                     }
                 }
@@ -64,7 +64,7 @@ public class ValidateServiceImpl implements ValidateService {
             oldUser.setBirthday(newUser.getBirthday());
             return oldUser;
         }
-        log.warn("Ошибка указания id");
+        log.warn("Неверно указанный id пользователя - {}", newUser.getId());
         throw new NotFoundException("Пользователь с id = " + newUser.getId() + " не найден");
     }
 
@@ -72,28 +72,28 @@ public class ValidateServiceImpl implements ValidateService {
     public void validate(Film film) {
 
         if (film.getName() == null || film.getName().isBlank()) {
-            log.warn("Ошибка указания названия");
+            log.warn("Ошибка указания названия. Введенное название - {}", film.getName());
             throw new ConditionsNotMetException("Название должно быть указано");
         }
         if (film.getDescription().getBytes().length > MAX_DESCRIPTION) {
-            log.warn("Ошибка указания описания");
+            log.warn("Ошибка указания описания. Введенное описание - {}", film.getDescription());
             throw new DimensionalViolationException("Длина описания должна быть меньше 200 символов");
         }
         if (film.getDuration() < 0) {
-            log.warn("Ошибка указания описания");
+            log.warn("Ошибка указания продолжительности. Введенная продолжительность - {}", film.getDuration());
             throw new DateTimeException("Продолжительность не должна быть отрицательной");
         }
         if (film.getReleaseDate().isBefore(LocalDate.of(1895, Month.DECEMBER, 28))) {
-            log.warn("Ошибка указания даты релиза");
+            log.warn("Ошибка указания даты релиза. Введенная дата - {}", film.getReleaseDate());
             throw new DateTimeException("Дата релиза не должна быть раньше 28.12.1895");
         }
-        log.info("Успешная валидация");
+        log.info("Успешная валидация фильма");
     }
 
     @Override
     public Film update(Film newFilm, Map<Long, Film> films) {
         if (newFilm.getId() == null) {
-            log.warn("Ошибка указания id");
+            log.warn("Ошибка! не был указан id");
             throw new ConditionsNotMetException("id должен быть указан");
         }
         if (films.containsKey(newFilm.getId())) {
@@ -105,7 +105,7 @@ public class ValidateServiceImpl implements ValidateService {
             oldFilm.setReleaseDate(newFilm.getReleaseDate());
             return newFilm;
         }
-        log.warn("Ошибка указания id");
+        log.warn("Неверно указанный id фильма - {}", newFilm.getId());
         throw new NotFoundException("Фильм с id = " + newFilm.getId() + " не найден");
     }
 }

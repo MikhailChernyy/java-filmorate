@@ -30,13 +30,13 @@ public class FilmController {
         validateService.validate(newFilm);
         newFilm.setId(getNextId());
         films.put(newFilm.getId(), newFilm);
-        log.info("Успешное создание фильма");
+        log.info("Успешное создание фильма с id - {}", newFilm.getId());
         return newFilm;
     }
 
     @PutMapping
     public Film update(@RequestBody Film newFilm) {
-        log.info("Обновление фильма");
+        log.info("Обновление фильма с id - {}", newFilm.getId());
         return validateService.update(newFilm, films);
     }
 
