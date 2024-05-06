@@ -7,22 +7,18 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
-/**
- * Film.
- */
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
-public class Film {
+public class User {
 
     Long id;
 
+    String email;
+
+    String login;
+
     String name;
 
-    String description;
-
-    LocalDate releaseDate;
-
-    int duration;
-
+    LocalDate birthday;
 }
