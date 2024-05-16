@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Film.
@@ -24,5 +26,7 @@ public class Film {
     LocalDate releaseDate;
 
     int duration;
+
+    final Set<Long> idOfTheLikes = new HashSet<>();
 
 }

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -21,4 +23,6 @@ public class User {
     String name;
 
     LocalDate birthday;
+
+    final Set<Long> friendsId = new HashSet<>();
 }

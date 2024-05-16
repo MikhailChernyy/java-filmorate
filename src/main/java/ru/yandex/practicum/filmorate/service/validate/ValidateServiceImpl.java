@@ -1,6 +1,7 @@
-package ru.yandex.practicum.filmorate.validation;
+package ru.yandex.practicum.filmorate.service.validate;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.*;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
@@ -10,6 +11,7 @@ import java.time.Month;
 import java.util.Map;
 
 @Slf4j
+@Service
 public class ValidateServiceImpl implements ValidateService {
  private static final int MAX_DESCRIPTION = 200;
 

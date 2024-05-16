@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.validation;
+package ru.yandex.practicum.filmorate.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,6 +7,8 @@ import ru.yandex.practicum.filmorate.exception.DateTimeException;
 import ru.yandex.practicum.filmorate.exception.DimensionalViolationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.validate.ValidateService;
+import ru.yandex.practicum.filmorate.service.validate.ValidateServiceImpl;
 
 import java.time.LocalDate;
 import java.time.Month;
